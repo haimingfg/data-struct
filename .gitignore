@@ -1,0 +1,12 @@
+# php
+php/.env
+php/*.lock
+php/vendor
+
+# common
+*.swp
+.idea
+.vscode
+
+# mac
+.DS_Store
