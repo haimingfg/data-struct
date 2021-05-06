@@ -24,5 +24,18 @@ void Pop(Stack S)
 ElementType TopAndPop(Stack S)
 ```
 
+# 存储结构
 
 # 应用
+数制转换
+
+括号匹配检验
+
+迷宫求解
+
+(参考资料)[https://blog.csdn.net/gavin_john/article/details/71374487]
+
+
+# 其他参考资料
+
+(参考资料) http://data.biancheng.net/view/169.html

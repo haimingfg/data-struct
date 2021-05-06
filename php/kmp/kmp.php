@@ -9,23 +9,18 @@ function kmp_search($main_string, $sub_string)
     $next = make_next($sub_string);
     var_dump($next);
     $main_len = strlen($main_string);
-    $sub_len = strlen($sub_string);
     $j = 0;
     for ($i = 0; $i < $main_len;) {
-        if ($j >= $main_len) {
-            break;
-        }
-        $match_main = substr($main_string, $i, 1);
-        $match_sub = substr($sub_string, $j, 1);
-        var_dump('$match_main:' . $match_main, '$match_sub:'. $match_sub, $j);
-        if ($match_main == $match_sub) {
-            $i++;
+        if ($main_string[$i] == $sub_string[$j]) {
+            echo '在', 'main: $i=',$i, '->', $main_string[$i], '，sub: $j=', $j, '->', $sub_string[$j], '相等', PHP_EOL;
             $j++;
+            $i++;
         }
         else {
-            var_dump('$i:' . $i, '$j = '.$j, '$next[$j] = ' . $next[$j]);
-            $j = $next[$i - $j];
-            var_dump('not match j :' . $j);
+            echo '在', 'main: $i=',$i, '->', $main_string[$i], '，sub: $j=', $j, '->', $sub_string[$j], '不相等', PHP_EOL;
+            $old_j = $j;
+            $j = $j - ($j - $next[$j - 1]);
+            echo '$next[', $old_j, '- 1] = ', $next[$old_j-1], '，跳转位', $old_j - $next[$old_j - 1], PHP_EOL;
         }
         sleep(1);
     }

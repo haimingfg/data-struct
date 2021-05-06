@@ -5,7 +5,7 @@ class Stack {
     private $capacity = 0;
 
     // 栈顶位置
-    private $topOfStack = 0;
+    private $topOfStack = -1;
 
     // 栈元素
     private $elements = [];
@@ -16,7 +16,7 @@ class Stack {
      * 
      * @return null
      */
-    public static function createStack(int $capacity)
+    public function createStack(int $capacity)
     {
         $this->capacity = $capacity;
     }   
@@ -28,7 +28,7 @@ class Stack {
      */
     public function isEmpty()
     {
-        return empty(count($this->elements));
+        return 0 === count($this->elements);
     }
 
     /**
@@ -42,6 +42,16 @@ class Stack {
     }
 
     /**
+     * 栈剩余空间
+     * 
+     * @return int
+     */
+    public function leftCapacity()
+    {
+        return $this->capacity - count($this->elements);
+    }
+
+    /**
      * 入栈
      * 
      * @param mixed $element
@@ -51,8 +61,9 @@ class Stack {
     public function push($element)
     {
         if ($this->isFull() == false) {
-            $this->topOfStack++;
-            $this->elements[$this->topOfStack] = $element;
+            $index = ++$this->topOfStack;
+            if (!isset($this->elements[$index])) $this->elements[$index] = '';
+            $this->elements[$index] = $element;
             return true;   
         }
         return false;
@@ -76,6 +87,10 @@ class Stack {
      */
     public function topAndPop()
     {
+        if ($this->isEmpty()) {
+            return null;   
+        }
+
         $element = $this->elements[$this->topOfStack];
         unset($this->elements[$this->topOfStack]);
         $this->topOfStack--;
@@ -91,10 +106,19 @@ class Stack {
     {
         // unset($this->elements);
         while (false === $this->isEmpty()) {
-            unset($this->elements[$this->topOfStack]);
-            $this->topOfStack--;
+            $this->topAndPop();
         }
 
         return true;
+    }
+
+    public function getTopOfStack()
+    {
+        return $this->topOfStack;
+    }
+
+    public function getAllElements()
+    {
+        return $this->elements;
     }
 }
